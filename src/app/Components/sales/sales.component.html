@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col s6">
+    <h1>Ventas</h1>
+  </div>
+  <div class="col s6 right-align">
+    <a class="waves-effect waves-light btn" routerLink="/new-sale">
+      <i class="material-icons left">add</i>
+      Nueva venta
+    </a>
+  </div>
+</div>
+<div>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+    style="width: 100%"
+  >
+    <ng-container matColumnDef="folio_venta">
+      <th mat-header-cell *matHeaderCellDef>Folio</th>
+      <td mat-cell *matCellDef="let venta">00{{ venta.folio }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="no_cliente">
+      <th mat-header-cell *matHeaderCellDef>No. Cliente</th>
+      <td mat-cell *matCellDef="let venta">00{{ venta.cliente_id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let venta">
+        {{ venta.cliente.nombre + " " + venta.cliente.apellidos }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>Total</th>
+      <td mat-cell *matCellDef="let venta">{{ venta.total }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+      <td mat-cell *matCellDef="let venta">{{ venta.fecha }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
