@@ -1,26 +1,37 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/Models/Cliente';
 import { ClienteService } from 'src/app/services/Cliente.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Articulo } from 'src/app/Models/Articulo';
 import { ArticuloService } from 'src/app/services/Articulo.service';
 import { Venta } from 'src/app/Models/Venta';
+import { VentaService } from 'src/app/services/Venta.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-new-sale',
   templateUrl: './new-sale.component.html',
   styleUrls: ['./new-sale.component.css'],
-  providers: [ClienteService, ArticuloService],
+  providers: [ClienteService, ArticuloService, VentaService],
 })
 export class NewSaleComponent implements OnInit {
   public clientes: Cliente[];
-  public articulos: Articulo[];
+  public articulos: Array<Articulo>;
   public venta: Venta;
+  dataTableColumns: string[] = [
+    'Articulo',
+    'Marca',
+    'Cantidad',
+    'Precio',
+    'Importe',
+  ];
+  public dataSource = new MatTableDataSource();
 
   constructor(
     private modalService: NgbModal,
     private _clienteService: ClienteService,
-    private _articuloService: ArticuloService
+    private _articuloService: ArticuloService,
+    private _ventaService: VentaService
   ) {
     this.venta = new Venta(0, 0, new Cliente(0, '', ''), 0, '20-04-2012');
   }
@@ -56,8 +67,11 @@ export class NewSaleComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  public addArticle(articulo: Articulo): void {
+  public addArticle(articulo: Articulo, index: number): void {
+    articulo.pivot = { cantidad: 1, importe: articulo.precio };
     this.venta.articulos.push(articulo);
+    this.articulos.splice(index, 1);
+    this.dataSource = new MatTableDataSource(this.venta.articulos);
     this.modalService.dismissAll();
   }
 }
