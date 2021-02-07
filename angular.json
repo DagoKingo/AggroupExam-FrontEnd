@@ -23,12 +23,8 @@
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/custom-theme.scss",
-              "src/styles.css",
-              "src/scss/styles.scss"
+              "src/styles.css"
             ],
-            "stylePreprocessorOptions": {
-              "includePaths": ["node_modules/materialize-css"]
-            },
             "scripts": []
           },
           "configurations": {

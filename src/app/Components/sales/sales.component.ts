@@ -16,12 +16,17 @@ export class SalesComponent implements OnInit, OnDestroy {
     'total',
     'fecha',
   ];
-  dataSource: Array<Venta> = new Array<Venta>();
+  dataSource: Array<Venta>;
   constructor(private _ventaService: VentaService) {
-    this.dataSource = _ventaService.getVentas(1);
+    this.dataSource = new Array<Venta>();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._ventaService.getVentas().subscribe(
+      (response) => (this.dataSource = response.data),
+      (error) => console.log(error)
+    );
+  }
 
   ngOnDestroy(): void {}
 }

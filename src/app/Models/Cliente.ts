@@ -1,3 +1,8 @@
 export class Cliente {
-  constructor(public nombre: string, public apellidos: string) {}
+  public nombre_completo: string;
+  constructor(
+    public id: number,
+    public nombre: string,
+    public apellidos: string
+  ) {}
 }

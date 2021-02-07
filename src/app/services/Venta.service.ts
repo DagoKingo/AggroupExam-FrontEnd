@@ -1,18 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cliente } from '../Models/Cliente';
+import { Observable } from 'rxjs';
 import { Venta } from '../Models/Venta';
+import { Global } from './global';
 
 @Injectable()
 export class VentaService {
-  constructor() {}
+  private url: string;
+  constructor(private _httpClient: HttpClient) {
+    this.url = Global._apiURL;
+  }
 
-  getVentas(page: number): Array<Venta> {
-    const ventas: Array<Venta> = new Array<Venta>();
-    ventas.push(
-      new Venta(1, 1, new Cliente('Juan', 'Perez'), 100, '20-09-2021'),
-      new Venta(2, 2, new Cliente('Carlos', 'Ramirez'), 300, '21-09-2021'),
-      new Venta(3, 3, new Cliente('Diego', 'Mendez'), 300, '21-09-2021')
-    );
-    return ventas;
+  getVentas(): Observable<any> {
+    return this._httpClient.get(this.url + '/ventas');
   }
 }
