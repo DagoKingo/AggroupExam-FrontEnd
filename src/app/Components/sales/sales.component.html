@@ -44,7 +44,7 @@
 
     <ng-container matColumnDef="fecha">
       <th mat-header-cell *matHeaderCellDef>Fecha</th>
-      <td mat-cell *matCellDef="let venta">{{ venta.fecha }}</td>
+      <td mat-cell *matCellDef="let venta">{{ venta.created_at }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
